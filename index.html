@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title></title>
+
+		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.js"></script>
+		<script type="text/javascript" src="lib/pixi.js"></script>
+
+	</head>
+	<body>
+		<script type="text/javascript" src="blendmodes.js"></script>
+		<button>Take Screenshot</button>
+
+		<img src="" width="800" height="600">
+		<script type="text/javascript">
+
+
+
+			var canvas = $('canvas')[0];
+      		var context = canvas.getContext('2d');
+
+			$('button').click(function() {
+
+				var data = renderer.view.toDataURL();
+
+
+				//var data = canvas.toDataURL('image/png');
+
+				$('img').attr('src', data);
+			})
+
+		</script>
+	</body>
+</html>
