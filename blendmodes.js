@@ -5,7 +5,7 @@ document.body.appendChild(renderer.view);
 var stage = new PIXI.Container();
 
 // create a new background sprite
-var background = new PIXI.Sprite.fromImage('assets/bgrotate.jpg');
+var background = new PIXI.Sprite.fromImage('assets/flag.jpg');
 stage.addChild(background);
 
 // create an array to store a reference to the dudes
@@ -55,8 +55,10 @@ var dudeBounds = new PIXI.Rectangle(-dudeBoundsPadding,
 
 var tick = 0;
 
-requestAnimationFrame(animate);
+//requestAnimationFrame(animate);
 
+
+animate();
 
 function animate()
 {
