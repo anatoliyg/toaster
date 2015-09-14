@@ -21,11 +21,8 @@
 
 			$('button').click(function() {
 
-				var data = renderer.view.toDataURL();
-
-
-				//var data = canvas.toDataURL('image/png');
-
+				var data = renderer.view.toDataURL("image/png", 1);
+				//tried var data = canvas.toDataURL();
 				$('img').attr('src', data);
 			})
 
