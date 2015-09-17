@@ -1,31 +1,166 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title></title>
+    <head>
+        <title></title>
+        <style type="text/css">
+            #canvas1{
+             /* position: absolute;
+              top: 0;
+              left: 20px;*/
+            }
+            #renderedImage {
+              position: absolute;
+              top: 0;
+              left: 500px;
+            }
+            #controls {
+              width: 205px;
+              height: 205px;
+              position: absolute;
+              left: 440px;
+              top: 0;
+            }
+            #btnRender {
+            position: absolute;
+            left: 440px;
+            top: 230px;
+            }
 
-		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.js"></script>
-		<script type="text/javascript" src="lib/pixi.js"></script>
+            #centeredImage{
+              display: block;
+              margin: 0 auto;
 
-	</head>
-	<body>
-		<script type="text/javascript" src="blendmodes.js"></script>
-		<button>Take Screenshot</button>
+            }
 
-		<img src="" width="800" height="600">
-		<script type="text/javascript">
+            .wrapper {
+              width: 600px;
+              height: 500px;
+              margin: 0 auto;
+              position: relative;
+            }
+            .wrapper.centered {
+              position: absolute;
+              left: 50%;
+              top: 50%;
+              
+              /*
+              Nope =(
+              margin-left: -25%;
+              margin-top: -25%;
+              */
+
+              /* 
+              Yep!
+              */
+              transform: translate(-50%, -50%);
+              
+              /*
+              Not even necessary really. 
+              e.g. Height could be left out!
+              */
+          
+            }
+
+            .wrapper.small{
+              width: 300px;
+              height: 100px;
+            }
+        </style>
+    </head>
+    <body>
+        <!-- PAGE 1 -->
+        <div id="page1">
+          <div class="wrapper centered small">
+            <fb:login-button id='loginButton' scope="public_profile,email" onlogin="checkLoginState();">
+            </fb:login-button>
+            <div id="status">
+            </div>
+          </div>
+        </div>
+
+        <div id="page3" style="display:none">
+         <img src="canvas.png">
+         <button>Publish to FB?</button>
+        </div>
+
+        <!-- PAGE 2 -->
+        <div id="page2" style="display:none">
+          <div class="wrapper">
+            <canvas id="canvas1" width="400" height="400"></canvas>
+            </br>
+
+
+            <div class="searchTool">
+                <div id="wrapper">
+                 <form id="my_form">
+                    <label style='display:none' for="service_op">Service Operation</label>
+                    <input style='display:none' name="service_op" type="radio" value="Web" /> 
+                    <input style='display:none' name="service_op" type="radio" value="Image" CHECKED/>
+                    <label style='display:none' for="query">Query</label>
+                    <input id="query" name="query" type="text" size="60" /><br /><br />
+                    <input id="bt_search" name="bt_search" type="button" value="Search" />
+                 </form>
+                 <!-- Results will be placed into the following container. -->
+                 <div id="results"></div>
+
+
+              </div>
+
+            </div>
+             
+            <div id="controls">
+              <span>opacity</span><input id='opacitySlider' type="range" id="myRange" value="50">   
+            
+              <span>blend mode</span>
+              <select id="blendSelect">
+                <option value="NORMAL">NORMAL</option>
+                <option value="ADD">ADD</option>
+                <option value="MULTIPLY">MULTIPLY</option>
+                <option value="SCREEN">SCREEN</option>
+              </select> 
+            
+              <span>Grayscale</span><input id="grayscale" type="checkbox" name="" value=""></br>
+            
+              <span>Tint Image</span><input id="enableTint" type="checkbox" name="" value="Car">
+              <input id="background-color" type="color" />
+            </div>
+          
+            <button id="btnRender">Preview</button>
+          </div>
+          
+        </div>
+        
+
+
+        <script type="text/javascript" src="lib/jquery.js"></script>
+        <script type="text/javascript" src="lib/pixi.js"></script>
+        <script type="text/javascript" src="facebooklogin.js"></script>
+        <script type="text/javascript" src="PixiEditor.js"></script>
+        <script>
+            // This is called with the results from from FB.getLoginStatus().
+            var profilePicUrl = '';
+            var pixiEditor= null;
+
+            $(document).on('PROFILE_PIC_AVAILABLE', function(e, url){
+              $('#page1').hide();
+              $('#page2').show();
+
+              //pixiEditor();
+              pixiContainer = new PixiEditor($('#page2 #canvas1'), url);
+              //pixiEditor.setProfile(url);
+              //console.log(url);
+            });
+            
+            function initPixi() {
+
+            }
+
+
+        </script>
+
+        
 
 
 
-			var canvas = $('canvas')[0];
-      		var context = canvas.getContext('2d');
-
-			$('button').click(function() {
-
-				var data = renderer.view.toDataURL("image/png", 1);
-				//tried var data = canvas.toDataURL();
-				$('img').attr('src', data);
-			})
-
-		</script>
-	</body>
+    </body>
 </html>
